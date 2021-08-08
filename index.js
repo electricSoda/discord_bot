@@ -6,8 +6,7 @@ const client = new Discord.Client({
 
 const request = require('request');
 
-const config = require("./config.json");
-const { prefix } = config;
+const prefix = "."
 const command = require("./command");
 
 client.on('ready', () => {
@@ -105,4 +104,4 @@ client.on('ready', () => {
     })
 });
 
-client.login(config.token);
+client.login(process.env.token);

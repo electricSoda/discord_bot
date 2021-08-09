@@ -63,6 +63,37 @@ client.on('ready', () => {
         })
     })
 
+    command(client, ['vendingmachine', 'vm'], message => {
+        const embed = new Discord.MessageEmbed()
+            .setTitle("Vending Machine")
+            .setDescription("Ouh hey look it's **food**")
+            .setAuthor('Soda Bot', 'https://i.ibb.co/yph4tm8/PROFILE-PIC.png', "https://github.com/electricSoda/")
+            .addFields(
+                { name: "Food", value: `\`Tier 1 Soda\`
+                                        \`Tier 2 Soda\`
+                                        \`Tier 3 Soda\`
+                                        \`Premium Soda\`
+                                        \`Stale Pancake\`
+                                        \`Premium Syrup Glazed Pancake\`
+                                        \`Freshly Picked Mushroom\`
+                                        \`Mushroom Stew\`
+                `, inline: true},
+                { name: "Price", value: `\`2 pops\`
+                                        \`8 pops\`
+                                        \`1 fiz 9 pops\`
+                                        \`4 fiz 2 pops\` 
+                                        \`1 pop\`                       
+                                        \`3 fiz 1 pop\` 
+                                        \`5 pops\`
+                                        \`1 fiz 7 pops\`
+                `, inline: true}
+            )
+            .setTimestamp()
+            .setFooter("Made by electricSoda#9064")
+        
+        message.channel.send({embeds: [embed]})
+    })
+
     command(client, ['chugsoda', 'soda'], message => {
         message.channel.send("https://bestanimations.com/media/soda/550127626soda-animated-gif-1.gif")
     })
@@ -88,12 +119,14 @@ client.on('ready', () => {
                                             \`.chucknorris\` - Chuck Norris jokes
                                             \`.chugsoda\` - Chug soda
                                             \`.chug [name] [count]\` - Pings someone you want to chug with
+                                            \`.vendingmachine\` - Shows available snacks
                 `, inline: true },
                 { name: "Aliases", value: `\`\help, h\`
                                             \`tronalddump, dd, donalddump, donaldtrump\`
                                             \`chucknorris, cn\`
                                             \`chugsoda, soda\`
-                                            \`chug\`
+                                            \`chug, c\`
+                                            \`vendingmachine, vm\`
                 `, inline: true },
                 { name: "-----------------------------------------------------------------", value: "\u200B"}
             )
@@ -104,4 +137,4 @@ client.on('ready', () => {
     })
 });
 
-client.login(process.env.token);
+client.login("ODczNjQ1MzE4NTQ0MTgzMzI5.YQ7bmw.itSJpG6eACPZrbJ7KS9ViR4xgqM");

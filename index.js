@@ -9,6 +9,17 @@ const request = require('request');
 const prefix = "."
 const command = require("./command");
 
+var vendingmachine = {
+    "Tier 1 Soda": "2 pops",
+    "Tier 2 Soda": "8 pops",
+    "Tier 3 Soda": "1 fiz 9 pops",
+    "Premium Soda": "4 fiz 2 pops",
+    "Stale Pancake": "1 pop",
+    "Premium Syrup Glazed Pancake": "3 fiz 1 pop",
+    "Freshly Picked Mushroom": "5 pops",
+    "Mushroom Stew": "1 fiz 7 pops"
+}
+
 client.on('ready', () => {
     console.log("electricSoda's bot is now online. Prepare the thrusters.");
 
@@ -92,6 +103,21 @@ client.on('ready', () => {
             .setFooter("Made by electricSoda#9064")
         
         message.channel.send({embeds: [embed]})
+    })
+
+    command(client, ['buy', 'b'], message => {
+        const args = message.content.slice(prefix.length).trim().split(`"`);
+        args.shift(); // remove the first argument (the command)
+        args.pop();
+
+        if (args[0] in vendingmachine) {
+            let price = vendingmachine[args[0]]
+            message.channel.send("You bought " + args[0])
+            message.channel.send("Price: " + price)
+            message.channel.send("And you just wasted a couple seconds of your life trying to buy a virtual item. ¯\_(ツ)_/¯")
+        } else {
+            message.channel.send("That item does not exist!")
+        }
     })
 
     command(client, ['chugsoda', 'soda'], message => {

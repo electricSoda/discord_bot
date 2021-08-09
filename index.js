@@ -146,6 +146,7 @@ client.on('ready', () => {
                                             \`.chugsoda\` - Chug soda
                                             \`.chug [name] [count]\` - Pings someone you want to chug with
                                             \`.vendingmachine\` - Shows available snacks
+                                            \`.buy "[food]"\` - Gets food from the vending machine.
                 `, inline: true },
                 { name: "Aliases", value: `\`\help, h\`
                                             \`tronalddump, dd, donalddump, donaldtrump\`
@@ -153,6 +154,7 @@ client.on('ready', () => {
                                             \`chugsoda, soda\`
                                             \`chug, c\`
                                             \`vendingmachine, vm\`
+                                            \`buy, b\`
                 `, inline: true },
                 { name: "-----------------------------------------------------------------", value: "\u200B"}
             )

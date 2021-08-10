@@ -1,8 +1,10 @@
 const Discord = require("discord.js");
 const client = new Discord.Client({ 
     partials: ["REACTION", "MESSAGE"],
-    intents: ["GUILDS", "GUILD_MESSAGES"]
+    intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_PRESENCES", "GUILD_MEMBERS", "GUILD_VOICE_STATES"]
 });
+
+const { createAudioPlayer, createAudioResource } = require('@discordjs/voice');
 
 const request = require('request');
 
@@ -132,6 +134,21 @@ client.on('ready', () => {
         }
     })
 
+    command(client, ['join'], message => {
+        var channel = message.member.voice.channel
+        if (!channel) {
+            message.reply("You are not in a voice channel.")
+            return
+        } else {
+            channel = client.channels.get(channel.id)
+            channel.join().then(connection => {
+                console.log("connected")
+            }).catch(e => {
+                console.error(e)
+            })
+        }
+    })
+
     command(client, ["help", 'h'], message => {
         const embed = new Discord.MessageEmbed()
             .setTitle("Help")
@@ -147,6 +164,7 @@ client.on('ready', () => {
                                             \`.chug [name] [count]\` - Pings someone you want to chug with
                                             \`.vendingmachine\` - Shows available snacks
                                             \`.buy "[food]"\` - Gets food from the vending machine.
+                                            \`.join\` - Joins your voice channel and RAHAHAHHA
                 `, inline: true },
                 { name: "Aliases", value: `\`\help, h\`
                                             \`tronalddump, dd, donalddump, donaldtrump\`
@@ -155,6 +173,7 @@ client.on('ready', () => {
                                             \`chug, c\`
                                             \`vendingmachine, vm\`
                                             \`buy, b\`
+                                            \`join\`
                 `, inline: true },
                 { name: "-----------------------------------------------------------------", value: "\u200B"}
             )
@@ -165,4 +184,4 @@ client.on('ready', () => {
     })
 });
 
-client.login(process.env.token);
+client.login("ODczNjQ1MzE4NTQ0MTgzMzI5.YQ7bmw.raUN5rFHwxNXfSwVu6-OlJIhQkQ");

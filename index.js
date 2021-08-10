@@ -184,4 +184,4 @@ client.on('ready', () => {
     })
 });
 
-client.login("ODczNjQ1MzE4NTQ0MTgzMzI5.YQ7bmw.raUN5rFHwxNXfSwVu6-OlJIhQkQ");
+client.login(process.env.token);

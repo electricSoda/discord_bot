@@ -229,3 +229,4 @@ client.on('ready', () => {
 });
 
 client.login(process.env.token);
+console.log(process.env.token)

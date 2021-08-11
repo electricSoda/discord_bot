@@ -1,3 +1,29 @@
+// Main website
+const express = require('express');
+const parser = require('body-parser');
+
+const fs = require('fs');
+
+const app = express();
+
+app.use(express.static('public'))
+
+var ueparser = parser.urlencoded({ extended: false })
+var json_file = require('./links.json');
+
+app.post("/new-link", ueparser, (req, res) => {
+    json_file.links.push(req.body.link)
+    fs.writeFile("./links.json", JSON.stringify(json_file, null, 2), function writeJSON(err) {
+        if (err) return console.log(err);
+    });
+    return res.sendFile('/public/index.html', {root: __dirname })
+})
+
+app.listen(3000, (req, res) => {
+    console.log("Server online.")
+});
+
+// Bot
 const Discord = require("discord.js");
 const client = new Discord.Client({ 
     partials: ["REACTION", "MESSAGE"],
@@ -30,8 +56,25 @@ client.on('ready', () => {
     });
 
     var activity = false;
+    var current = 0;
 
-    setInterval(function() {
+    var act = setInterval(() => {
+        console.log(current)
+        if (current == 86400 * 1000) {
+            var new_json = require("./links.json");
+            if (new_json.links.length != 0) {
+                client.channels.cache.get('842795588272521276').send("Daily dose of tiktok (from Victor): " + new_json.links[0]);
+                new_json.links.splice(0, 1);
+                fs.writeFile("./links.json", JSON.stringify(new_json, null, 2), function writeJSON(err) {
+                    if (err) return console.log(err);
+                });
+                console.log("said")
+            } else {
+                client.channels.cache.get('842795588272521276').send("There are no more tiktoks :(");
+                console.log("sent")
+            }
+            current = 0;
+        }
         if (activity) {
             client.user.setActivity("soccer while high on soda.", {
                 type: "PLAYING"
@@ -43,6 +86,7 @@ client.on('ready', () => {
             });
             activity = true;
         }
+        current = current + 10000
     }, 10000)
 
 
@@ -184,4 +228,4 @@ client.on('ready', () => {
     })
 });
 
-client.login(process.env.token);
+client.login("ODczNjQ1MzE4NTQ0MTgzMzI5.YQ7bmw.hOhv_Nf72sgDxvS1Vyy6dwo-B3A");

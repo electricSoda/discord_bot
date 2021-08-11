@@ -56,11 +56,14 @@ client.on('ready', () => {
     });
 
     var activity = false;
-    var current = 0;
 
     var act = setInterval(() => {
-        console.log(current)
-        if (current == 86400 * 1000) {
+        let date_ob = new Date();
+        let hours = date_ob.getHours();
+        let minutes = date_ob.getMinutes();
+        let time = String(hours) + ":" + String(minutes)
+
+        if (time == "01:00") {
             var new_json = require("./links.json");
             if (new_json.links.length != 0) {
                 client.channels.cache.get('842795588272521276').send("Daily dose of tiktok (from Victor): " + new_json.links[0]);
@@ -86,7 +89,6 @@ client.on('ready', () => {
             });
             activity = true;
         }
-        current = current + 10000
     }, 10000)
 
 
@@ -229,4 +231,3 @@ client.on('ready', () => {
 });
 
 client.login(process.env.token);
-console.log(process.env.token)

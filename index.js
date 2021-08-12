@@ -66,6 +66,7 @@ client.on('ready', () => {
             });
             activity = true;
         }
+        console.log("Process running")
     }, 10000)
 
 
